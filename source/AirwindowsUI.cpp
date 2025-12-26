@@ -27,7 +27,7 @@ void AirwindowsLookAndFeel::drawLinearSlider (juce::Graphics& g, int x, int y, i
     g.strokePath (backgroundTrack, {trackWidth*0.618f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded });
     //draw the slot from which the slider moves. Note that we leave a bit of space on the bottom to show the label:
     
-    g.setFont(juce::Font(newFont, g.getCurrentFont().getHeight(), 0));
+    g.setFont(juce::FontOptions(newFont, g.getCurrentFont().getHeight(), 0));
     g.setFont ((((lineW+bevelW)*30.0f) / (float)g.getCurrentFont().getHeight()));
     if (slider.isHorizontal()) bounds.removeFromBottom((bounds.getHeight()*0.5f)-(bevelW*3.0f));
     else bounds.removeFromBottom(-30.0f);
@@ -43,7 +43,7 @@ void AirwindowsLookAndFeel::drawLinearSlider (juce::Graphics& g, int x, int y, i
     juce::Point<float> maxPoint = {slider.isHorizontal()?(sliderPos*0.94f)+(width*0.025f):((float)x+(float)width*0.5f), slider.isHorizontal()?((float)y+(float)height*0.5f):(sliderPos*0.94f)+(height*0.025f)};
     float thumbWidth = bevelW*2.9f;
     auto rectSlider = juce::Rectangle<float>(thumbWidth*1.618f, thumbWidth).withCentre(maxPoint);
-    if (slider.isHorizontal()) rectSlider = juce::Rectangle(thumbWidth, thumbWidth*1.618f).withCentre(maxPoint);
+    if (slider.isHorizontal()) rectSlider = juce::Rectangle<float>(thumbWidth, thumbWidth*1.618f).withCentre(maxPoint);
     g.setColour (findColour(juce::ResizableWindow::backgroundColourId)); g.setOpacity(1.0f); g.fillRoundedRectangle (rectSlider, bevelW);
     //solid background for knob so you can't see the track under it
     juce::ColourGradient cg = juce::ColourGradient(juce::Colours::white, rectSlider.getTopLeft(), juce::Colours::black, rectSlider.getBottomRight(),false);
@@ -108,7 +108,7 @@ void AirwindowsLookAndFeel::drawRotarySlider (juce::Graphics& g, int x, int y, i
     g.drawEllipse (inset, bevelW*0.618f); g.setColour (juce::Colours::black); g.drawEllipse (square, lineW);
     //This is the outside circle of the knob, with the shading/highlighting that renders the 3D effect. Tilting of the knob is included
     
-    g.setFont(juce::Font(newFont, g.getCurrentFont().getHeight(), 0));
+    g.setFont(juce::FontOptions(newFont, g.getCurrentFont().getHeight(), 0));
     g.setFont ((((lineW+bevelW)*30.0f) / (float)g.getCurrentFont().getHeight()) + (tilt*0.25f));
     auto padHeight = (sqrt(bevelW)*-2.0f) + ((bounds.getHeight())-(bounds.getWidth()*scaleHeight)) + (tilt*bevelW) + (fabs(tilt)*-bevelW); if (padHeight < 0.0) padHeight = 0.0;
     textbounds.removeFromBottom(padHeight*0.618f);
@@ -205,7 +205,7 @@ void AirwindowsMeter::paint(juce::Graphics &g) {
     }
     g.drawImage(barImage, 0, 0, getWidth(), getHeight()-linewidth, 0, 0, 33, 4); //draw the bar meter
     if ((displayTrackName == juce::String()) || (displayTrackName.length() < 1.0f)) displayTrackName = juce::String("ConsoleX Buss"); //if not track name, then name of plugin
-    g.setFont(juce::Font(displayFont, g.getCurrentFont().getHeight(), 0)); g.setFont(getHeight());
+    g.setFont(juce::FontOptions(displayFont, g.getCurrentFont().getHeight(), 0)); g.setFont(getHeight());
     g.setColour (findColour(juce::ResizableWindow::backgroundColourId).interpolatedWith (juce::Colours::black, 0.5f));
     g.fillRect(0, 0, getWidth(), linewidth);
     g.fillRect(0, 0, linewidth, getHeight());
